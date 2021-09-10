@@ -1,4 +1,8 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-/vcs.xml
+/*
+
+!src/
+!libs/
+!xmls/
+!pom.xml
+!README.md
+!.gitignore
