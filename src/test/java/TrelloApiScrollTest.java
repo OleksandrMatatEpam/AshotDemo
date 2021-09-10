@@ -6,15 +6,15 @@ import java.io.IOException;
 import static Core.AshotHelper.*;
 import static Core.Errors.displayScreenshotDiscrepancyError;
 
-public class BingTest extends BrowserFactory {
+public class TrelloApiScrollTest extends BrowserFactory {
 
-    @Test(description = "Bing Main Page Test")
-    public void bingTest() throws IOException {
+    @Test(description = "Trello API Screenshot With Scroll Test")
+    public void trelloApiScrollTest() throws IOException {
         createScreenshotFolders();
 
-        driver.get("https://www.bing.com/");
+        driver.get("https://developer.atlassian.com/cloud/trello/rest/api-group-actions/");
 
-        int difference = getScreenshotsDiff(takeScreenshot());
+        int difference = getScreenshotsDiff(takeScrollScreenshot(900));
 
         // Acceptable difference for this particular test
         int acceptableDifference = 20;

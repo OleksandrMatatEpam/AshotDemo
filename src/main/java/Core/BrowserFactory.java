@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeTest;
 public class BrowserFactory {
 
     protected static WebDriver driver;
+    protected static String testName;
 
     @BeforeTest
     public void setDriver() {
@@ -16,8 +17,10 @@ public class BrowserFactory {
         driver.manage().window().maximize();
     }
 
-    public String getCurrentTestName(){
-        return this.getClass().getSimpleName();
+    // Test name is used for folder and screenshot paths
+    @BeforeTest
+    public void setTestName(){
+        testName = this.getClass().getSimpleName();
     }
 
     @AfterTest

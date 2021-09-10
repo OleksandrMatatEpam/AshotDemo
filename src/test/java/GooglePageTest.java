@@ -4,26 +4,20 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static Core.AshotHelper.*;
+import static Core.Errors.displayScreenshotDiscrepancyError;
 
 public class GooglePageTest extends BrowserFactory {
 
-    @Test
+    @Test(description = "Google Main Page Test")
     public void googlePageTest() throws IOException {
-        //Test name is used to create folder and a screenshot
-        String testName = getCurrentTestName();
-
-        createScreenshotFolders(testName);
+        createScreenshotFolders();
 
         driver.get("https://www.google.com.ua");
 
-        int difference = getScreenshotsDiff(takeScreenshot(), testName, testName);
+        int difference = getScreenshotsDiff(takeScreenshot());
 
         // Acceptable difference for this particular test
         int acceptableDifference = 20;
-        Assert.assertTrue(difference <= acceptableDifference, String.format("Screenshots discrepancy found. \n " +
-                        "Expected difference: %d pixels. \n " +
-                        "Actual difference: %d pixels. \n " +
-                        "See the difference: %s \n",
-                acceptableDifference, difference, DIFF_DIR + testName + "/" + testName + ".png"));
+        Assert.assertTrue(difference <= acceptableDifference, displayScreenshotDiscrepancyError(acceptableDifference, difference));
     }
 }

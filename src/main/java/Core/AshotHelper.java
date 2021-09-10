@@ -11,26 +11,23 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static Core.BrowserFactory.driver;
+import static Core.BrowserFactory.testName;
+import static Core.Constants.FoldersPaths.*;
 
 public class AshotHelper {
 
     private static Logger logger = Logger.getLogger(String.valueOf(AshotHelper.class));
 
-    public static final String RESOURCES_LAYOUT_DIR = "/Users/matat/IdeaProjects/AshotDemo/src/main/resources/screenshots/";
-    public static final String ACTUAL_DIR = RESOURCES_LAYOUT_DIR + "actual/";
-    public static final String EXPECTED_DIR = RESOURCES_LAYOUT_DIR + "expected/";
-    public static final String DIFF_DIR = RESOURCES_LAYOUT_DIR + "diff/";
-
-    public static int getScreenshotsDiff(Screenshot actualScreenshot, String folderName, String actualScreenshotName) throws IOException {
-        String expectedScreenshotPath = EXPECTED_DIR + folderName + "/" + actualScreenshotName + ".png";
-        String actualScreenshotPath = ACTUAL_DIR + folderName + "/" + actualScreenshotName + ".png";
-        String diffScreenshotPath = DIFF_DIR + folderName + "/" + actualScreenshotName + ".png";
+    public static int getScreenshotsDiff(Screenshot actualScreenshot) throws IOException {
+        String expectedScreenshotPath = EXPECTED_DIR + testName + "/" + testName + ".png";
+        String actualScreenshotPath = ACTUAL_DIR + testName + "/" + testName + ".png";
+        String diffScreenshotPath = DIFF_DIR + testName + "/" + testName + ".png";
 
         File expectedFile = new File(expectedScreenshotPath);
         File actualFile = new File(actualScreenshotPath);
         ImageIO.write(actualScreenshot.getImage(), "png", actualFile);
         if (!expectedFile.exists()) {
-            logger.info("Expected screenshot does not exist, creating a new screenshot: " + actualScreenshotName);
+            logger.info("Expected screenshot does not exist, creating a new screenshot: " + testName);
             ImageIO.write(actualScreenshot.getImage(), "png", expectedFile);
         }
         Screenshot expectedScreenshot = new Screenshot(ImageIO.read(new File(expectedScreenshotPath)));
@@ -42,10 +39,10 @@ public class AshotHelper {
         return diff.getDiffSize();
     }
 
-    public static void createScreenshotFolders(String folderName){
-        createFolder(EXPECTED_DIR + folderName + "/");
-        createFolder(ACTUAL_DIR + folderName + "/");
-        createFolder(DIFF_DIR + folderName + "/");
+    public static void createScreenshotFolders(){
+        createFolder(EXPECTED_DIR + testName + "/");
+        createFolder(ACTUAL_DIR + testName + "/");
+        createFolder(DIFF_DIR + testName + "/");
     }
 
     public static void createFolder(String path) {
@@ -57,5 +54,9 @@ public class AshotHelper {
 
     public static Screenshot takeScreenshot(){
         return new AShot().shootingStrategy(ShootingStrategies.simple()).takeScreenshot(driver);
+    }
+
+    public static Screenshot takeScrollScreenshot(int scrollDuration){
+        return new AShot().shootingStrategy(ShootingStrategies.viewportPasting(scrollDuration)).takeScreenshot(driver);
     }
 }
