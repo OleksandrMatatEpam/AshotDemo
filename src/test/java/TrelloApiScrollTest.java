@@ -14,7 +14,7 @@ public class TrelloApiScrollTest extends BrowserFactory {
 
         driver.get("https://developer.atlassian.com/cloud/trello/rest/api-group-actions/");
 
-        int difference = getScreenshotsDiff(takeScrollScreenshot(900));
+        int difference = getScreenshotsDiff(takeScrollScreenshot());
 
         // Acceptable difference for this particular test
         int acceptableDifference = 20;

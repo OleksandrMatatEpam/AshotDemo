@@ -56,7 +56,7 @@ public class AshotHelper {
         return new AShot().shootingStrategy(ShootingStrategies.simple()).takeScreenshot(driver);
     }
 
-    public static Screenshot takeScrollScreenshot(int scrollDuration){
-        return new AShot().shootingStrategy(ShootingStrategies.viewportPasting(scrollDuration)).takeScreenshot(driver);
+    public static Screenshot takeScrollScreenshot(){
+        return new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1500)).takeScreenshot(driver);
     }
 }
