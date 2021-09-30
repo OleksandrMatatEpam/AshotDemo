@@ -1,20 +1,22 @@
+import Core.AshotHelper;
 import Core.BrowserFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.io.IOException;
 
 import static Core.AshotHelper.*;
 import static Core.Errors.displayScreenshotDiscrepancyError;
 
-public class TrelloApiScrollTest extends BrowserFactory {
+public class TeraIgnoreElementTest extends BrowserFactory {
 
-    @Test(description = "Trello API Screenshot With Scroll Test")
-    public void trelloApiScrollTest() throws IOException {
+    @Test(description = "Terra Ignore Element Test")
+    public void terraIgnoreElementTest() throws IOException {
         createScreenshotFolders();
 
-        driver.get("https://developer.atlassian.com/cloud/trello/rest/api-group-actions/");
+        driver.get("https://engineering.cerner.com/terra-ui/about/terra-ui/what-is-terra");
 
-        int difference = getScreenshotsDiff(takeScreenshot(1500));
+        int difference = getScreenshotsDiff(AshotHelper.takeScreenshot("terra-dev-site-nav-menu"));
 
         // Acceptable difference for this particular test
         int acceptableDifference = 20;

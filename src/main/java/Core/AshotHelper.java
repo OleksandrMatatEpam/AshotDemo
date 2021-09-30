@@ -1,9 +1,12 @@
 package Core;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
+import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -56,7 +59,23 @@ public class AshotHelper {
         return new AShot().shootingStrategy(ShootingStrategies.simple()).takeScreenshot(driver);
     }
 
-    public static Screenshot takeScrollScreenshot(){
-        return new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1500)).takeScreenshot(driver);
+    public static Screenshot takeScreenshot(WebElement specificElement){
+        return new AShot()
+                .shootingStrategy(ShootingStrategies.simple())
+                .coordsProvider(new WebDriverCoordsProvider())
+                .takeScreenshot(driver, specificElement);
+    }
+
+
+    public static Screenshot takeScreenshot(String ignoredElement){
+        return new AShot()
+                .shootingStrategy(ShootingStrategies.simple())
+                .coordsProvider(new WebDriverCoordsProvider())
+                .addIgnoredElement(By.cssSelector(ignoredElement))
+                .takeScreenshot(driver);
+    }
+
+    public static Screenshot takeScreenshot(int scrollTimeout){
+        return new AShot().shootingStrategy(ShootingStrategies.viewportPasting(scrollTimeout)).takeScreenshot(driver);
     }
 }
