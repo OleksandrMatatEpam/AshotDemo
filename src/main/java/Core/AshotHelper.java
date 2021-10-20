@@ -38,9 +38,10 @@ public class AshotHelper {
         expectedScreenshot.setCoordsToCompare(actualScreenshot.getCoordsToCompare());
         int colorDistortion = 5;
         ImageDiff diff = new ImageDiffer().withColorDistortion(colorDistortion).makeDiff(expectedScreenshot, actualScreenshot);
-        BufferedImage diffImage = diff.getMarkedImage();
-        ImageIO.write(diffImage, "png", diffFile);
-
+        if (diff.hasDiff()){
+            BufferedImage diffImage = diff.getMarkedImage();
+            ImageIO.write(diffImage, "png", diffFile);
+        }
         return diff.getDiffSize();
     }
 

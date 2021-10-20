@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static Core.AshotHelper.*;
-import static Core.Errors.displayScreenshotDiscrepancyError;
+import static Core.CustomErrors.displayScreenshotDiscrepancyError;
 
 public class GooglePageTest extends BrowserFactory {
 

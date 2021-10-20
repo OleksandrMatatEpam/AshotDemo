@@ -2,9 +2,9 @@ package Core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-
 import java.util.concurrent.TimeUnit;
 
 public class BrowserFactory {
@@ -14,8 +14,10 @@ public class BrowserFactory {
 
     @BeforeTest
     public void setDriver() {
-        System.setProperty("webdriver.chrome.driver", "/Users/matat/Documents/Driver/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\drivers\\chromedriver.exe");
+//        System.setProperty("webdriver.ie.driver", "src\\main\\resources\\drivers\\IEDriverServer.exe");
         driver = new ChromeDriver();
+//        driver = new InternetExplorerDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
@@ -31,7 +33,7 @@ public class BrowserFactory {
     }
 
     @AfterTest
-    public void afterTestExample () {
+    public void afterTest() {
         driver.quit();
     }
 }
